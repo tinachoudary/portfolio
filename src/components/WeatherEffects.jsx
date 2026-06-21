@@ -76,44 +76,52 @@ const Snowstorm = () => {
   );
 };
 
-const SunRays = () => (
+const ClearSky = () => (
   <div className="absolute inset-0 pointer-events-none overflow-hidden">
     <motion.div
-      animate={{ rotate: 360 }}
-      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      className="absolute top-20 right-20 w-40 h-40"
-    >
-      <svg viewBox="0 0 200 200" className="w-full h-full">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <motion.line
-            key={i}
-            x1="100"
-            y1="20"
-            x2="100"
-            y2="40"
-            stroke="rgba(255, 255, 255, 0.3)"
-            strokeWidth="3"
-            strokeLinecap="round"
-            style={{
-              rotate: i * 30,
-              transformOrigin: "100px 100px",
-            }}
-            animate={{ opacity: [0.2, 0.6, 0.2] }}
-            transition={{
-              duration: 2,
-              delay: i * 0.15,
-              repeat: Infinity,
-            }}
-          />
-        ))}
-      </svg>
-    </motion.div>
+      animate={{ scale: [1, 1.025, 1] }}
+      transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-16 right-16 w-56 h-56 rounded-full"
+      style={{
+        background: "radial-gradient(circle, rgba(255,255,255,0.96) 0%, rgba(198,230,255,0.55) 35%, rgba(143,205,255,0.18) 70%, rgba(143,205,255,0) 100%)",
+        filter: "blur(28px)",
+      }}
+    />
 
     <motion.div
-      animate={{ scale: [1, 1.2, 1] }}
-      transition={{ duration: 3, repeat: Infinity }}
-      className="absolute top-24 right-24 w-32 h-32 bg-yellow-300 rounded-full blur-3xl opacity-20"
+      animate={{ opacity: [0.85, 1, 0.85] }}
+      transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-24 right-24 w-28 h-28 rounded-full bg-white/90 shadow-white/70 shadow-2xl"
     />
+
+    <motion.div
+      animate={{ x: [0, 12, 0], y: [0, -4, 0] }}
+      transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-36 left-10 w-36 h-24 rounded-full bg-white/70 blur-sm"
+      style={{
+        boxShadow: "0 20px 40px rgba(255,255,255,0.18)",
+      }}
+    />
+
+    <motion.div
+      animate={{ x: [0, -10, 0], y: [0, 4, 0] }}
+      transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+      className="absolute top-24 left-24 w-44 h-28 rounded-full bg-white/65 blur-sm"
+      style={{
+        boxShadow: "0 20px 40px rgba(255,255,255,0.15)",
+      }}
+    />
+
+    <motion.svg
+      viewBox="0 0 100 40"
+      className="absolute top-56 left-16 w-28 h-12 opacity-90"
+      animate={{ y: [0, -6, 0] }}
+      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+    >
+      <path d="M8 20 C 16 10, 28 10, 36 20" stroke="white" strokeWidth="2" fill="none" opacity="0.9" />
+      <path d="M44 20 C 52 10, 64 10, 72 20" stroke="white" strokeWidth="2" fill="none" opacity="0.8" />
+      <path d="M80 20 C 88 10, 98 10, 106 20" stroke="white" strokeWidth="2" fill="none" opacity="0.7" />
+    </motion.svg>
   </div>
 );
 
@@ -277,7 +285,7 @@ export function WeatherEffects({ condition }) {
   }
 
   if (condition === "clear sky") {
-    return <SunRays />;
+    return <ClearSky />;
   }
 
   if (condition === "thunderstorm") {

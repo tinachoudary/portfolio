@@ -9,7 +9,7 @@ import "@fontsource/syne";
 
 const weatherColorMap = {
   "clear sky": {
-    day: ["#FFB347", "#FF6B9D", "#C44569"],
+    day: ["#9AE1FF", "#71C7FF", "#4A90E2"],
     night: ["#1a1a2e", "#16213e", "#0f3460"],
   },
   "few clouds": {
@@ -54,11 +54,6 @@ function Hero() {
   useEffect(() => {
     const fetchWeather = async () => {
       try {
-        // TODO: Remove this line after testing
-        setWeatherCondition("thunderstorm");
-        setIsDay(true);
-        return;
-
         const position = await new Promise((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
@@ -72,7 +67,8 @@ function Hero() {
         const data = await response.json();
         const weatherCode = data.current.weather_code;
         const dayStatus = data.current.is_day;
-
+      console.log("Weather API response:", data.current);
+console.log("Weather code:", weatherCode, "Is day:", dayStatus);
         setIsDay(dayStatus === 1);
 
         // Map WMO weather codes to descriptions
@@ -115,9 +111,9 @@ function Hero() {
   }, []);
 
   const colors = weatherColorMap[weatherCondition]?.[isDay ? "day" : "night"] || [
-    "#FFB347",
-    "#FF6B9D",
-    "#C44569",
+    "#8BD2FF",
+    "#71C7FF",
+    "#4A90E2",
   ];
 
   const backgroundStyle = {

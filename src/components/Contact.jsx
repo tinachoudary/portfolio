@@ -5,7 +5,7 @@ function Contact() {
       className="max-w-4xl mx-auto px-6 py-24"
     >
       <h3 className="text-3xl font-bold mb-8">
-        Want more detail than the site can show? Contact me...
+        Want more details than the site can show? Contact me...
       </h3>
 
       <div className="space-y-4 text-gray-300">
@@ -18,12 +18,12 @@ function Contact() {
         </a>
 
         <a
-          href="YOUR_LINKEDIN_URL"
+          href="https://www.linkedin.com/in/tina-choudary-yalamanchili-968b04215/"
           target="_blank"
           rel="noreferrer"
           className="block hover:text-white transition"
         >
-          LinkedIn →
+          LinkedIn → Click here to go to my LinkedIn profile
         </a>
 
         <a
@@ -31,7 +31,7 @@ function Contact() {
           download
           className="block hover:text-white transition"
         >
-          Resume →
+          Resume → Click here to download my resume
         </a>
 
       </div>

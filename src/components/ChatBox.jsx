@@ -6,7 +6,6 @@ function ChatBox() {
   const [isLoading, setIsLoading] = useState(false);
 
   const suggestions = [
-    "What do you do at HSBC?",
     "Tell me about your projects",
     "What technologies do you work with?",
     "What are your skills?"
@@ -20,7 +19,7 @@ function ChatBox() {
 
     try {
       const response = await fetch(
-        "http://localhost:5000/chat",
+        "https://portfolio-jlrr.onrender.com/chat",
         {
           method: "POST",
           headers: {
@@ -49,7 +48,7 @@ function ChatBox() {
 
   return (
     <section
-      id="contact"
+      id="ask-tina"
       className="max-w-5xl mx-auto px-6 py-32"
     >
       <h2 className="text-4xl font-bold">
