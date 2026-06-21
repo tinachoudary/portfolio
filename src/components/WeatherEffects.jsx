@@ -112,16 +112,6 @@ const ClearSky = () => (
       }}
     />
 
-    <motion.svg
-      viewBox="0 0 100 40"
-      className="absolute top-56 left-16 w-28 h-12 opacity-90"
-      animate={{ y: [0, -6, 0] }}
-      transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-    >
-      <path d="M8 20 C 16 10, 28 10, 36 20" stroke="white" strokeWidth="2" fill="none" opacity="0.9" />
-      <path d="M44 20 C 52 10, 64 10, 72 20" stroke="white" strokeWidth="2" fill="none" opacity="0.8" />
-      <path d="M80 20 C 88 10, 98 10, 106 20" stroke="white" strokeWidth="2" fill="none" opacity="0.7" />
-    </motion.svg>
   </div>
 );
 

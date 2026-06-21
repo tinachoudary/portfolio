@@ -50,13 +50,19 @@ function Hero() {
   const { scrollY } = useScroll();
   const [weatherCondition, setWeatherCondition] = useState("clear sky");
   const [isDay, setIsDay] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadingStep, setLoadingStep] = useState(0);
 
   useEffect(() => {
     const fetchWeather = async () => {
+      const startTime = Date.now();
+
       try {
         const position = await new Promise((resolve, reject) => {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
+
+        setLoadingStep(1); // Detecting Location complete
 
         const { latitude, longitude } = position.coords;
 
@@ -67,9 +73,14 @@ function Hero() {
         const data = await response.json();
         const weatherCode = data.current.weather_code;
         const dayStatus = data.current.is_day;
-      console.log("Weather API response:", data.current);
-console.log("Weather code:", weatherCode, "Is day:", dayStatus);
+
+        setLoadingStep(2); // Reading Weather complete
+
+        console.log("Weather API response:", data.current);
+        console.log("Weather code:", weatherCode, "Is day:", dayStatus);
+
         setIsDay(dayStatus === 1);
+        setLoadingStep(3); // Determining Time of Day complete
 
         // Map WMO weather codes to descriptions
         const weatherMap = {
@@ -101,9 +112,27 @@ console.log("Weather code:", weatherCode, "Is day:", dayStatus);
 
         const condition = weatherMap[weatherCode] || "clear sky";
         setWeatherCondition(condition);
+        setLoadingStep(4); // Applying Context complete
+
+        // Ensure minimum 1000ms duration
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 1000 - elapsedTime);
+
+        setTimeout(() => {
+          setIsLoading(false);
+        }, remainingTime);
       } catch (error) {
         console.log("Weather fetch error:", error);
         setWeatherCondition("clear sky");
+        setLoadingStep(4);
+
+        // Ensure minimum 1000ms duration even on error
+        const elapsedTime = Date.now() - startTime;
+        const remainingTime = Math.max(0, 1000 - elapsedTime);
+
+        setTimeout(() => {
+          setIsLoading(false);
+        }, remainingTime);
       }
     };
 
@@ -144,10 +173,16 @@ console.log("Weather code:", weatherCode, "Is day:", dayStatus);
     [1, 0.5]
   );
 
+  const steps = [
+    "Detecting Location",
+    "Reading Weather",
+    "Determining Time of Day",
+    "Applying Context",
+  ];
 
   return (
     <section
-      style={backgroundStyle}
+      style={isLoading ? { background: "#111827" } : backgroundStyle}
       className="
         h-screen
         flex
@@ -158,20 +193,81 @@ console.log("Weather code:", weatherCode, "Is day:", dayStatus);
         relative
       "
     >
-      <WeatherEffects condition={weatherCondition} />
-      <motion.div
-        style={{
-          scale,
-          opacity,
-          y,
-        }}
-        className="
-          max-w-5xl
-          text-center
-          relative
-          z-10
-        "
-      >
+      {isLoading ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="text-center"
+          >
+            <h2 className="text-2xl md:text-3xl font-semibold mb-16">
+              Personalizing your experience...
+            </h2>
+
+            <div className="space-y-4">
+              {steps.map((step, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{
+                    opacity: loadingStep > index ? 1 : 0.4,
+                    y: 0,
+                  }}
+                  transition={{
+                    duration: 0.5,
+                    delay: index * 0.1,
+                  }}
+                  className="flex items-center gap-3"
+                >
+                  <div className="w-6 h-6 flex items-center justify-center">
+                    {loadingStep > index ? (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="text-green-400 text-lg"
+                      >
+                        ✓
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        animate={{ opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                        className="text-gray-500 text-lg"
+                      >
+                        ...
+                      </motion.div>
+                    )}
+                  </div>
+                  <span
+                    className={
+                      loadingStep > index ? "text-white" : "text-gray-500"
+                    }
+                  >
+                    {step}
+                  </span>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      ) : (
+        <>
+          <WeatherEffects condition={weatherCondition} />
+          <motion.div
+            style={{
+              scale,
+              opacity,
+              y,
+            }}
+            className="
+              max-w-5xl
+              text-center
+              relative
+              z-10
+            "
+          >
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -264,8 +360,10 @@ console.log("Weather code:", weatherCode, "Is day:", dayStatus);
               {item}
             </span>
           ))}
-        </div>
-      </motion.div>
+          </div>
+        </motion.div>
+        </>
+      )}
     </section>
   );
 }
