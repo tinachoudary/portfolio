@@ -52,7 +52,7 @@ function ChatBox() {
       className="max-w-5xl mx-auto px-6 py-32"
     >
       <h2 className="text-4xl font-bold">
-        Ask Tina
+        Ask Tina's resumebot
       </h2>
 
       <p className="text-gray-400 mt-3 mb-10">
@@ -75,7 +75,7 @@ function ChatBox() {
 
         <input
           type="text"
-          placeholder="What do you do at HSBC?"
+          placeholder="What are your educational qualifications?"
           value={question}
           onChange={(e) =>
             setQuestion(e.target.value)
@@ -138,7 +138,7 @@ function ChatBox() {
           `}
         >
           {isLoading
-            ? "Tina is thinking..."
+            ? "Tina's resumebot is thinking..."
             : "Ask"}
         </button>
 

@@ -28,6 +28,12 @@ function Projects() {
       tech: ["React", "Node.js", "Gemini API", "AI"]
     },
     {
+      title: "Quiz Web Application",
+      description:
+        "Developed an efficient quiz management and delivery platform with HTML, CSS, and PHP; supported testing processes and quality checks using Jira and SonarQube.",
+      tech: ["HTML", "CSS", "PHP", "Jira", "SonarQube"]
+    },
+    {
       title: "Smart Agriculture IoT System",
       description:
         "Built an IoT-based monitoring system featuring automated irrigation, fire detection, pest monitoring, and environmental sensing.",
