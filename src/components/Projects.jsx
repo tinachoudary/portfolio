@@ -9,53 +9,85 @@ function Projects() {
     {
       title: "Enterprise Security Modernization",
       description:
-        "Remediated 216+ high-severity security vulnerabilities across a production enterprise application, improving security compliance and code quality.",
-      tech: ["Java", "Spring Boot", "Security", "AWS"]
+        "Resolved 200+ high-severity SonarQube (SAST) vulnerabilities across an enterprise application, significantly improving security, maintainability, and overall code quality.",
+      tech: ["Java", "Spring Boot", "Security", "SonarQube"]
     },
     {
-      title: "Production Release Readiness",
+      title: "Production Release & API Development",
       description:
-        "Contributed to Spring Boot API production readiness, testing coordination, deployment activities, and successful enterprise releases.",
-      tech: ["Java", "Spring Boot", "Testing", "DevOps"]
+        "Contributed to Spring Boot API development, optimized backend interactions, and led deployment and production readiness activities for enterprise applications.",
+      tech: ["Java", "Spring Boot", "REST APIs", "DevOps"]
     }
   ];
 
   const personalProjects = [
     {
-      title: "AI Portfolio Assistant",
+      title: "RenovAI – Multi-Agent AI Interior Design Assistant",
       description:
-        "An AI-powered portfolio that answers questions about my experience, projects, and technical background using Gemini and resume-grounded responses.",
-      tech: ["React", "Node.js", "Gemini API", "AI"]
+        "Built an AI-powered interior design assistant using Google's Agent Development Kit that analyzes room images, stores user preferences, recommends furniture through Google Shopping, and generates renovation concepts using multiple AI agents.",
+      tech: [
+        "Python",
+        "Google ADK",
+        "Gemini",
+        "Serper API",
+        "Pydantic",
+        "AI"
+      ]
+    },
+    {
+      title: "Developer Portfolio Website",
+      description:
+        "Designed and developed a modern portfolio website with weather-based UI personalization, customizable themes, project filtering, and a Gemini-powered chatbot that answers recruiter questions using resume-grounded responses.",
+      tech: [
+        "React",
+        "Node.js",
+        "Gemini API",
+        "Tailwind CSS",
+        "Vercel"
+      ]
     },
     {
       title: "Quiz Web Application",
       description:
-        "Developed an efficient quiz management and delivery platform with HTML, CSS, and PHP; supported testing processes and quality checks using Jira and SonarQube.",
-      tech: ["HTML", "CSS", "PHP", "Jira", "SonarQube"]
+        "Developed a web-based quiz management system supporting quiz creation, participation, and result management while improving usability through frontend enhancements and testing.",
+      tech: [
+        "HTML",
+        "CSS",
+        "PHP",
+        "Jira",
+        "SonarQube"
+      ]
     },
     {
       title: "Smart Agriculture IoT System",
       description:
-        "Built an IoT-based monitoring system featuring automated irrigation, fire detection, pest monitoring, and environmental sensing.",
-      tech: ["IoT", "Python", "Sensors", "Real-time"]
+        "Developed an IoT-based smart farming prototype featuring automated irrigation, fire detection, pest monitoring, and environmental sensing to improve agricultural productivity.",
+      tech: [
+        "IoT",
+        "ESP32",
+        "Arduino",
+        "Sensors"
+      ]
     }
   ];
 
-  // Get all unique tech tags
   const allTechs = [
     ...new Set([
-      ...engineeringContributions.flatMap(p => p.tech),
-      ...personalProjects.flatMap(p => p.tech)
+      ...engineeringContributions.flatMap((p) => p.tech),
+      ...personalProjects.flatMap((p) => p.tech)
     ])
   ].sort();
 
-  // Filter projects based on selected tech
   const filteredEngineering = selectedTech
-    ? engineeringContributions.filter(p => p.tech.includes(selectedTech))
+    ? engineeringContributions.filter((p) =>
+        p.tech.includes(selectedTech)
+      )
     : engineeringContributions;
 
   const filteredPersonal = selectedTech
-    ? personalProjects.filter(p => p.tech.includes(selectedTech))
+    ? personalProjects.filter((p) =>
+        p.tech.includes(selectedTech)
+      )
     : personalProjects;
 
   return (
@@ -65,9 +97,11 @@ function Projects() {
         Projects
       </h2>
 
-      {/* Tech Filter */}
       <div className="mb-12">
-        <p className="text-gray-400 text-sm mb-4">Filter by tech stack:</p>
+        <p className="text-gray-400 text-sm mb-4">
+          Filter by tech stack:
+        </p>
+
         <div className="flex flex-wrap gap-3">
           <button
             onClick={() => setSelectedTech(null)}
@@ -79,6 +113,7 @@ function Projects() {
           >
             All
           </button>
+
           {allTechs.map((tech) => (
             <button
               key={tech}
@@ -99,17 +134,13 @@ function Projects() {
         Professional Experience Highlights
       </h3>
 
-      <motion.div
-        className="grid md:grid-cols-2 gap-8 mb-24"
-        layout
-      >
+      <motion.div className="grid md:grid-cols-2 gap-8 mb-24" layout>
         {filteredEngineering.map((project, index) => (
           <motion.div
             key={index}
             layout
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
             <ProjectCard
@@ -131,17 +162,13 @@ function Projects() {
         Personal Projects
       </h3>
 
-      <motion.div
-        className="grid md:grid-cols-2 gap-8"
-        layout
-      >
+      <motion.div className="grid md:grid-cols-2 gap-8" layout>
         {filteredPersonal.map((project, index) => (
           <motion.div
             key={index}
             layout
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
             <ProjectCard
