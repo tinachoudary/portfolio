@@ -6,14 +6,18 @@ function ChatBox() {
   const [isLoading, setIsLoading] = useState(false);
 
   const suggestions = [
-    "Tell me about your projects",
     "What technologies do you work with?",
-    "What are your skills?"
+    "What are your skills?",
+    "Tell me about RenovAI",
+    "What certifications do you have?"
   ];
 
-  const handleAskAI = async () => {
-    if (question.trim() === "" || isLoading) return;
+  const handleAskAI = async (customQuestion = null) => {
+    const query = customQuestion || question;
 
+    if (query.trim() === "" || isLoading) return;
+
+    setQuestion(query);
     setIsLoading(true);
     setAnswer("");
 
@@ -25,7 +29,7 @@ function ChatBox() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ question }),
+          body: JSON.stringify({ question: query }),
         }
       );
 
@@ -33,14 +37,20 @@ function ChatBox() {
 
       if (!response.ok) {
         setAnswer(
-          data.error || "Something went wrong."
+          data.error ||
+            "I'm not sure. Please contact Tina directly for more information."
         );
       } else {
-        setAnswer(data.answer);
+        setAnswer(
+          data.answer ||
+            "I'm not sure. Please contact Tina directly for more information."
+        );
       }
     } catch (error) {
-      console.log(error);
-      setAnswer("Something went wrong.");
+      console.error(error);
+      setAnswer(
+        "I'm not sure. Please contact Tina directly for more information."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -55,9 +65,12 @@ function ChatBox() {
         Ask Tina's resumebot
       </h2>
 
-      <p className="text-gray-400 mt-3 mb-10">
-        Curious about my experience, projects,
-        publications, or tech stack?
+      <p className="text-gray-400 mt-3">
+        Ask about my experience, projects, and skills.
+      </p>
+
+      <p className="text-gray-500 text-sm mt-2 mb-10">
+        Responses are generated from my resume and portfolio.
       </p>
 
       <div
@@ -70,12 +83,12 @@ function ChatBox() {
         "
       >
         <div className="text-sm text-gray-500 mb-5">
-          Resume-powered AI Assistant
+          Resume-Powered AI Assistant
         </div>
 
         <input
           type="text"
-          placeholder="What are your educational qualifications?"
+          placeholder="Ask me anything about Tina's experience..."
           value={question}
           onChange={(e) =>
             setQuestion(e.target.value)
@@ -101,7 +114,8 @@ function ChatBox() {
           {suggestions.map((item) => (
             <button
               key={item}
-              onClick={() => setQuestion(item)}
+              onClick={() => handleAskAI(item)}
+              disabled={isLoading}
               className="
                 px-3
                 py-2
@@ -113,6 +127,7 @@ function ChatBox() {
                 hover:text-white
                 hover:border-white/20
                 transition
+                disabled:opacity-50
               "
             >
               {item}
@@ -121,7 +136,7 @@ function ChatBox() {
         </div>
 
         <button
-          onClick={handleAskAI}
+          onClick={() => handleAskAI()}
           disabled={isLoading}
           className={`
             mt-6
@@ -137,9 +152,7 @@ function ChatBox() {
             }
           `}
         >
-          {isLoading
-            ? "Tina's resumebot is thinking..."
-            : "Ask"}
+          {isLoading ? "Thinking..." : "Ask AI"}
         </button>
 
         {answer && (
@@ -154,8 +167,7 @@ function ChatBox() {
                 p-5
                 text-gray-300
                 whitespace-pre-wrap
-                leading-8
-              "
+                leading-8"
             >
               {answer}
             </div>
