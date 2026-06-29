@@ -10,7 +10,8 @@ function About() {
         rounded-t-[48px]
         -mt-[50vh]
         px-6
-        py-32
+        py-24
+        md:py-32
       "
     >
       <div
@@ -19,25 +20,24 @@ function About() {
           mx-auto
           grid
           lg:grid-cols-[320px_1fr]
-          gap-20
+          gap-12
+          lg:gap-20
         "
       >
-        {/* Sticky Card */}
+        {/* Highlights */}
 
-        <div className="hidden lg:block">
-
+        <div>
           <div
             className="
-              sticky
-              top-32
-              bg-white/5
-              backdrop-blur-md
-              border
-              border-white/10
-              text-black
+              lg:sticky
+              lg:top-32
+              bg-white
               rounded-3xl
-              p-8
+              p-6
+              lg:p-8
               shadow-xl
+              border
+              border-gray-200
             "
           >
             <h3 className="text-2xl font-bold mb-8">
@@ -45,9 +45,8 @@ function About() {
             </h3>
 
             <div className="space-y-6">
-
               <div>
-                <p className="text-sm opacity-70 mb-1">
+                <p className="text-sm text-gray-500 mb-1">
                   Current Role
                 </p>
 
@@ -55,27 +54,27 @@ function About() {
                   Software Engineer
                 </p>
 
-                <p className="text-sm">
+                <p className="text-sm text-gray-700">
                   HSBC Technology India
                 </p>
               </div>
 
               <div>
-                <p className="text-sm opacity-70 mb-1">
+                <p className="text-sm text-gray-500 mb-1">
                   Education
                 </p>
 
                 <p className="font-semibold">
-                  B.Tech CSE
+                  B.Tech Computer Science
                 </p>
 
-                <p className="text-sm">
+                <p className="text-sm text-gray-700">
                   Amrita Vishwa Vidyapeetham
                 </p>
               </div>
 
               <div>
-                <p className="text-sm opacity-70 mb-1">
+                <p className="text-sm text-gray-500 mb-1">
                   Publications
                 </p>
 
@@ -85,7 +84,7 @@ function About() {
               </div>
 
               <div>
-                <p className="text-sm opacity-70 mb-1">
+                <p className="text-sm text-gray-500 mb-1">
                   Certification
                 </p>
 
@@ -93,28 +92,27 @@ function About() {
                   Google Cloud
                 </p>
 
-                <p className="text-sm">
+                <p className="text-sm text-gray-700">
                   Generative AI Leader
                 </p>
               </div>
-
             </div>
           </div>
-
         </div>
 
-        {/* Main Content */}
+        {/* About Content */}
 
         <div>
-
-          <h2 className="text-5xl font-bold mb-10">
+          <h2 className="text-4xl md:text-5xl font-bold mb-10">
             About Me
           </h2>
 
           <div
             className="
-              text-lg
-              leading-9
+              text-base
+              md:text-lg
+              leading-8
+              md:leading-9
               text-gray-700
               space-y-8
             "
@@ -145,11 +143,8 @@ function About() {
               I also enjoy research and have authored
               publications in autonomous vehicle routing.
             </p>
-
           </div>
-
         </div>
-
       </div>
     </section>
   );

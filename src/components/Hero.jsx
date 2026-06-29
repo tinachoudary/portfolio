@@ -183,15 +183,16 @@ function Hero() {
   return (
     <section
       style={isLoading ? { background: "#111827" } : backgroundStyle}
-      className="
-        h-screen
-        flex
-        items-center
-        justify-center
-        px-6
-        text-white
-        relative
-      "
+className="
+  min-h-screen
+  flex
+  items-center
+  justify-center
+  px-5 sm:px-6
+  py-24 sm:py-16
+  text-white
+  relative
+"
     >
       {isLoading ? (
         <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -261,12 +262,13 @@ function Hero() {
               opacity,
               y,
             }}
-            className="
-              max-w-5xl
-              text-center
-              relative
-              z-10
-            "
+className="
+  max-w-5xl
+  w-full
+  text-center
+  relative
+  z-10
+"
           >
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -303,7 +305,7 @@ function Hero() {
             ${textClass}
           `}
         >
-          Hello , I'm Tina.
+          Hello, I'm Tina.
         </motion.h1>
 
         <motion.p
